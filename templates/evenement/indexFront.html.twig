@@ -1,0 +1,55 @@
+{% extends 'front.html.twig' %}
+
+
+
+{% block body %}
+
+
+    <div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+              <div id="google_translate_element"></div>
+
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Evenements</h4>
+            </div>
+            <div class="row">
+           {% for evenement in evenements %}
+        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-item">
+          <img src="{{ asset('uploads/' ~evenement.imageEvent)}}" style=" width:360px; height:250px; " alt="">
+          <center><h2>{{ evenement.nomEvent }}</h2></center>
+          <p><strong style="color:#696969"> Type:</strong> {{ evenement.typeEvent }}</p>
+          <p><strong style="color:#696969" >Lieu:</strong> {{ evenement.descriptionEvent }}</p>
+          <p><strong style="color:#696969" >Nbr de participants:</strong> {{ evenement.nbParticipants }}</p>
+          <p><strong style="color:#696969">Date de début:</strong> {{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</p>
+         <center> <a href="{{ path('app_participation_new',{'idevent':evenement.idEvent}) }}" class="btn btn-primary">Participer</a></center>
+         <br>
+         <br>
+           {# -------------------------- Share -------------------------------------  #}
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64065d7b567fbf001a2d5d17&product=inline-share-buttons&source=platform" async="async"></script>
+  {# ---------------------------------------------------------------------- #}
+
+
+        </div>
+      </div>
+      {% else %}
+      <div class="col">
+        <p class="text-center">Aucun événement trouvé.</p>
+      </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+    <br>
+    
+    {# -------------------------- Share -------------------------------------  #}
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64065d7b567fbf001a2d5d17&product=inline-share-buttons&source=platform" async="async"></script>
+  {# ---------------------------------------------------------------------- #}
+
+        {#<center><div class="btn px-10 py-10" {{knp_pagination_render(evenements) }} </div></center>#}
+
+{% endblock %}
+               

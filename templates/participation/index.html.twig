@@ -1,0 +1,39 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Participation index{% endblock %}
+
+{% block body %}
+    <h1>Participation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdParticipation</th>
+                <th>IdUser</th>
+                <th>NomEvent</th>
+                <th>DatePart</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for participation in participations %}
+            <tr>
+                <td>{{ participation.idParticipation }}</td>
+                <td>{{ participation.idUser }}</td>
+                <td>{{ participation.idEvenement }}</td>
+                <td>{{ participation.datePart ? participation.datePart|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_participation_show', {'idParticipation': participation.idParticipation}) }}">show</a>
+                    <a href="{{ path('app_participation_edit', {'idParticipation': participation.idParticipation}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_participation_newback') }}">Create new</a>
+{% endblock %}

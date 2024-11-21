@@ -1,0 +1,121 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+<br>
+    <h1>Liste des Evenements</h1>
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                </ol>
+            </nav>
+        </div>
+    <div class="row ">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <div style="display: flex">
+                        <div class="col-md-5">
+                        </div>
+                        <form method="post" class="forms-sample" style="margin-left: -42px" >
+                            <div class="form-group col-md-4" style="display: flex; width: 100%!important; margin: 0px!important;">
+
+                                <div class="form-check">
+                                    <label class="form-check-label" style="width: 92px;margin-left: -2px;margin-right: 10px;">
+                                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="nomEvent">Nom</label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" style="width: 86px;margin-left: -2px;margin-right: 10px;">
+                                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="typeEvent" >Type</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <label class="form-check-label" style="width: 86px;margin-left: -2px;margin-right: 10px;">
+                                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="date" >date</label>
+                                </div>
+
+                                <button type="Submit" class="btn btn-success btn-fw" style="margin: auto; ">Sort</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <ul class="navbar-nav w-100" style="margin-top: 18px;">
+                        <li class="nav-item w-100">
+                            <form name="Search-method" id="Search-method"method="post" class="forms-sample" style="display: flex">
+                                <div class="form-group col-md-5">
+                                    <label style="margin-top: 11px;margin-left: 10px;margin-right: 14px;padding-bottom: 7px;;">Option Recherche</label>
+                                    <select name="optionsearch" class="js-example-basic-single" style="width: 200px;height: 38px; color: white; background-color: #191c24; border-radius: 4px;text-align: center;border: 2px solid #0090e7;margin-right: 15px;">
+                                        <option value="">Choisi un Critére</option>
+                                        <option value="nomEvent">Nom Evenement</option>
+                                        <option value="typeEvent">typeEvent</option>
+                                        <option value="date">date Evenement</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <div class="input-group">
+                                        <input name="Search" type="text" class="form-control" placeholder="Search Events" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-sm btn-primary" type="Submit">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdEvent</th>
+                <th>ImageEvent</th>
+                <th>NomEvent</th>
+                <th>TypeEvent</th>
+                <th>Date</th>
+                <th>DescriptionEvent</th>
+                <th>NbParticipants</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+
+<br>
+<br>
+         <tbody id="myTable">
+        <div class="form-group col-md-7">
+        <div class="input-group custom-search-form">
+        <div class="search-box">
+    <input type="text" name="search" id="search" class="form-control" placeholder="Type to Search Event...">
+    </div>
+  </div>    
+</div>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.idEvent }}</td>
+                <td><img src="{{ asset('uploads/' ~evenement.imageEvent) }}" style=" width:150px; height:150px; " alt=""/></td>
+                <td>{{ evenement.nomEvent }}</td>
+                <td>{{ evenement.typeEvent }}</td>
+                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.descriptionEvent }}</td>
+                <td>{{ evenement.nbParticipants }}</td>
+                <td>
+                    <a href="{{ path('app_evenement_show', {'idEvent': evenement.idEvent}) }}"class="btn btn-square btn-secondary m-2"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('app_evenement_edit', {'idEvent': evenement.idEvent}) }}"class="btn btn-info rounded-pill m-2" ><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <p><a href="{{ path('app_evenement_new') }}" class="btn btn-primary px-3 py-1">Ajouter nouveau</a></p>
+{% endblock %}
